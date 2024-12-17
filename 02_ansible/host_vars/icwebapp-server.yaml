@@ -1,3 +1,3 @@
 ansible_user: ubuntu
 ansible_password: datascientest
-ansible_host: 3.80.46.238
+ansible_host: 204.236.243.211

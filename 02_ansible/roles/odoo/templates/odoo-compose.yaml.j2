@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+ {{ odoo_name }}:
+    image: {{ odoo_image }}
+    container_name: {{ odoo_name }}
+    depends_on:
+      - {{ database_name }}
+    ports:
+      - {{ odoo_port }}:8069
+    environment:
+      - HOST={{ database_name }}
+      - USER={{ database_user }}
+      - PASSWORD={{ database_password }}
+    volumes:
+      - '{{ odoo_volume_name }}:/var/lib/odoo'
+      - ./config:/etc/odoo
+      - ./addons:/mnt/addons
+    networks:
+      - {{ network }}
+ {{ database_name }}:
+    image: {{ database_image }}
+    container_name: {{ database_name }}
+    environment:
+      - POSTGRES_DB={{ database_name }}
+      - POSTGRES_PASSWORD={{ database_password }}
+      - POSTGRES_USER={{ database_user }}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - '{{ odoo_database_name }}:/var/lib/postgresql/data'
+    networks:
+      - {{ network }}
+
+networks:
+   {{ network }}:
+    external: true
+    name: {{ network }}
+
+volumes:
+  {{ odoo_volume_name }}:
+  {{ odoo_database_name }}:

@@ -1,8 +1,8 @@
 ---
 # defaults file for pgadmin
-pgadmin_name: "pgadmin"
-pgadmin_email: "toto@toto.com"
-pgadmin_password: "toto"
-pgadmin_image: "dpage/pgadmin4"
-pgadmin_port: 8081
+pgadmin_name: pgadmin
+pgadmin_email: toto@toto.com
+pgadmin_password: toto
+pgadmin_image: dpage/pgadmin4
+pgadmin_port: 8082
 network: "{{ network }}"

@@ -2,7 +2,7 @@
 # defaults file for icwebapp
 network: "ic_webapp_network"
 icw_container_name: "ic-webapp"
-icw_image: "ulrichsteve/icwebapp:1.0"
+icw_image: "ulrichsteve/ic-webapp:1.0"
 icw_port: 8081
 odoo_url: "http://{{ ansible_host }}:8069"
-pgadmin_url: "http://{{ ansible_host }}:8081"
+pgadmin_url: "http://{{ ansible_host }}:8082"

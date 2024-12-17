@@ -1,10 +1,12 @@
 ---
 - hosts: all
   become: true 
+  gather_facts: no
   vars:
     network: ic-webapp-network
   roles:
     - docker
+    - icwebapp 
     - odoo
     - pgadmin
-    - icwebapp 
+    

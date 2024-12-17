@@ -1,7 +1,5 @@
 ---
 # tasks file for pgadmin
----
-# tasks file for pgadmin
 - name: "generate  docker compose"
   template:
     src: "pgadmin-compose.yaml.j2"

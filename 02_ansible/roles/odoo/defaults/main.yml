@@ -1,12 +1,12 @@
 ---
 # defaults file for odoo
-odoo_name : "odoo"
-odoo_image: "odoo:17.0"
-odoo_port: "8069"
-odoo_volume_name: "odoo_volume"
-database_name: "postgres"
-database_user: "odoo"
-database_password: "odoo"
+odoo_name : odoo
+odoo_image: odoo:17.0
+odoo_port: 8069
+odoo_volume_name: odoo_volume
+database_name: postgres
+database_user: odoo
+database_password: odoo
 network: "{{ network }}"
-database_image: "postgres:15"
-odoo_database_name: "odoo_database_name"
+database_image: postgres:15
+odoo_database_name: odoo_database_name

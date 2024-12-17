@@ -4,13 +4,13 @@
   apt: 
     update_cache: yes
     upgrade: dist
-  when: ansible_distribution in ["Debian", "Ubuntu"]
+#  when: ansible_distribution in ["Debian", "Ubuntu"]
 
-- name: update CENTOS
-  yum: 
-    update_cache: yes
-    upgrade: dist
-  when: ansible_distribution in ["RedHat", "CentOS"]
+# - name: update CENTOS
+#   yum: 
+#     update_cache: yes
+#     upgrade: dist
+#   when: ansible_distribution in ["RedHat", "CentOS"]
 
 - name: download script docker
   get_url:
@@ -37,7 +37,7 @@
 - name: add user to docker group
   user: 
     name: "{{ ansible_user }}"
-    group: docker
+    groups: docker
     append: yes 
   become: yes
   notify: restart docker after modification 
