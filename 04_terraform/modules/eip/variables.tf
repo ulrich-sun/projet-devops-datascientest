@@ -1,0 +1,2 @@
+variable "eip_name" {
+}
