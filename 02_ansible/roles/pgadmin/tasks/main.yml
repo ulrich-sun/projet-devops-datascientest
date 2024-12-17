@@ -1,2 +1,12 @@
 ---
 # tasks file for pgadmin
+---
+# tasks file for pgadmin
+- name: "generate  docker compose"
+  template:
+    src: "pgadmin-compose.yaml.j2"
+    dest: "/home/{{ ansible_user }}/pgadmin_compose.yaml"
+    mode: "0555"
+
+- name: start pgadmin stack
+  command: "docker compose -f /home/{{ ansible_user }}/pgadmin_compose.yaml up -d "
