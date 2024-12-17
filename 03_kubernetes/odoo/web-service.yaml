@@ -14,7 +14,7 @@ spec:
   - name: "8069"
     port: 8069
     targetPort: 8069
+    nodePort: 30069
   selector:
     io.kompose.service: web
-status:
-  loadBalancer: {}
+  type: NodePort

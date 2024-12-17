@@ -28,10 +28,10 @@ spec:
       containers:
       - env:
         - name: ODOO_URL
-          value: http://3.80.46.238:8069
+          value: http://184.72.213.139:30069
         - name: PGADMIN_URL
-          value: http://3.80.46.238:8081
-        image: ic-webapp:1.0
+          value: http://184.72.213.139:30081
+        image: ulrichsteve/ic-webapp:1.0
         imagePullPolicy: ""
         name: ic-webapp
         ports:
