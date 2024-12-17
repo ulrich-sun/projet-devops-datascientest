@@ -1,0 +1,43 @@
+---
+# tasks file for docker
+- name: update UBUNTU 
+  apt: 
+    update_cache: yes
+    upgrade: dist
+  when: ansible_distribution in ["Debian", "Ubuntu"]
+
+- name: update CENTOS
+  yum: 
+    update_cache: yes
+    upgrade: dist
+  when: ansible_distribution in ["RedHat", "CentOS"]
+
+- name: download script docker
+  get_url:
+    url: https://get.docker.com
+    dest: /tmp/get-docker.sh
+    mode: '0755'
+
+- name: install docker
+  command: sh /tmp/get-docker.sh
+  become: yes 
+
+- name: start docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: check group docker
+  group:
+    name: docker
+    state: present
+  become: yes 
+  notify: restart docker after modification
+- name: add user to docker group
+  user: 
+    name: "{{ ansible_user }}"
+    group: docker
+    append: yes 
+  become: yes
+  notify: restart docker after modification 

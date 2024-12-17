@@ -1,0 +1,5 @@
+all:
+  children:
+    icwebapp:
+      hosts:
+        icwebapp-server:

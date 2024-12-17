@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  web:
+    image: odoo:17.0
+    container_name: odoo
+    depends_on:
+      - mydb
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=mydb
+      - USER=odoo
+      - PASSWORD=myodoo
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/addons
+    networks:
+      - ic-webapp-networks
+  mydb:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=myodoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db:/var/lib/postgresql/data
+    networks:
+      - ic-webapp-networks
+
+networks:
+  ic-webapp-networks:
+    external: true
+
+volumes:
+  odoo-db:
+  odoo-web-data:

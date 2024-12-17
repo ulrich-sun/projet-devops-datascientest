@@ -1,0 +1,13 @@
+---
+# handlers file for docker
+- name: restart docker after modification
+  service:
+    name: docker
+    state: restarted
+
+# - name: restart docker after modification centos
+#   systemctl:
+#     name: docker
+#     state: restarted
+
+# when: ansible_distribution in ["Debian", "Ubuntu"]

@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true 
+  tasks:
+    - name: mise a jour
+      apt: 
+        update_cache: yes
+        upgrade: dist
+    - name: installation de apache
+      apt:
+        name: apache2
+        state: present
+    - name: start apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes 
+    - name: delete default file
+      file:
+        path: /var/www/html/index.html
+        state: absent
+    - name: upload code
+      copy:
+        src: /home/ubuntu/projet-devops-datascientest/02_ansible/website/
+        dest: /var/www/html/
+    - name: restart service
+      service:
+        name: apache2
+        state: restarted
+
+
