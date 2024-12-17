@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f odoo-compose.yaml
+      --out ../../03_kubernetes/odoo/
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mydb
+  name: mydb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mydb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f odoo-compose.yaml
+          --out ../../03_kubernetes/odoo/
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ic-webapp-networks: "true"
+        io.kompose.service: mydb
+    spec:
+      containers:
+      - env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: myodoo
+        - name: POSTGRES_USER
+          value: odoo
+        image: postgres:15
+        imagePullPolicy: ""
+        name: postgres
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: odoo-db
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: odoo-db
+        persistentVolumeClaim:
+          claimName: odoo-db
+status: {}

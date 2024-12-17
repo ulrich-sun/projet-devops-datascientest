@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f ic-webapp-compose.yaml
+      --out ../../03_kubernetes/
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: icwebapp
+  name: icwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: icwebapp
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f ic-webapp-compose.yaml
+          --out ../../03_kubernetes/
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: icwebapp
+    spec:
+      containers:
+      - env:
+        - name: ODOO_URL
+          value: http://3.80.46.238:8069
+        - name: PGADMIN_URL
+          value: http://3.80.46.238:8081
+        image: ic-webapp:1.0
+        imagePullPolicy: ""
+        name: ic-webapp
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

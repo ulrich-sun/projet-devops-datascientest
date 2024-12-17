@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f pgadmin-compose.yaml
+      --out ../../03_kubernetes/pgadmin/
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pgadmin4
+  name: pgadmin4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: pgadmin4
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f pgadmin-compose.yaml
+          --out ../../03_kubernetes/pgadmin/
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ic-webapp-networks: "true"
+        io.kompose.service: pgadmin4
+    spec:
+      containers:
+      - env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: toto@toto.com
+        - name: PGADMIN_DEFAULT_PASSWORD
+          value: odoo
+        image: dpage/pgadmin4
+        imagePullPolicy: ""
+        name: pgadmin4
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

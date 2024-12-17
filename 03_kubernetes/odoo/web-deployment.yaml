@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f odoo-compose.yaml
+      --out ../../03_kubernetes/odoo/
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f odoo-compose.yaml
+          --out ../../03_kubernetes/odoo/
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ic-webapp-networks: "true"
+        io.kompose.service: web
+    spec:
+      containers:
+      - env:
+        - name: HOST
+          value: mydb
+        - name: PASSWORD
+          value: myodoo
+        - name: USER
+          value: odoo
+        image: odoo:17.0
+        imagePullPolicy: ""
+        name: odoo
+        ports:
+        - containerPort: 8069
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/odoo
+          name: odoo-web-data
+        - mountPath: /etc/odoo
+          name: web-claim1
+        - mountPath: /mnt/addons
+          name: web-claim2
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: odoo-web-data
+        persistentVolumeClaim:
+          claimName: odoo-web-data
+      - name: web-claim1
+        persistentVolumeClaim:
+          claimName: web-claim1
+      - name: web-claim2
+        persistentVolumeClaim:
+          claimName: web-claim2
+status: {}
