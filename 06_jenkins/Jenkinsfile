@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+     
     environment {
         DOCKERFILE_NAME = "Dockerfile"
         DOCKERHUB_ID = "ulrichsteve"
@@ -15,7 +15,7 @@ pipeline {
 
     stages {
         stage('checkout')
-           agent any{
+           {
             steps {
                 scripts {
                     git 'https://github.com/ulrich-sun/projet-devops-datascientest.git'
@@ -23,7 +23,7 @@ pipeline {
             }
         }
         stage('Build')
-            agent any {
+             {
             steps {
                script {
                  sh '''
@@ -33,7 +33,7 @@ pipeline {
             }
         }
         stage('Run and Test') 
-            agent any {
+             {
             steps {
                 script {
                     sh '''
@@ -57,7 +57,7 @@ pipeline {
 
         // }
         stage('Delete') 
-            agent any {
+             {
             steps {
                 script {
                     sh '''
@@ -69,7 +69,7 @@ pipeline {
 
         }
         stage('Login and Push')
-            agent any {
+             {
             steps {
                 script {
                     sh '''
