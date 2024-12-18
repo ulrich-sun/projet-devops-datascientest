@@ -1,0 +1,9 @@
+---
+- name: apply manifest
+  hosts: localhost
+  tasks:
+    - name: apply manifest file
+      command: "kubectl --kubeconfig=./kubeconfig-k3s.yml apply -k ~/bootcamp-devops-projet/03_kubernetes --validate=false "
+
+    # - name: apply manifest file
+    #   command: "kubectl --kubeconfig=./kubeconfig-k3s.yml delete -k ~/bootcamp-devops-projet/03_kubernetes"
