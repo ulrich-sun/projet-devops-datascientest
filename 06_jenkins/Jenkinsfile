@@ -108,7 +108,7 @@ pipeline {
                     sh '''
                         cd 02_ansible/
                         ansible all -m ping
-                        ansible-playbook playbooks/vm-docker.yml
+                        ansible-playbook playbooks/vm-docker.yaml
                     '''
                 }
             }
