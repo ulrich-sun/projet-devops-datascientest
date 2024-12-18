@@ -17,9 +17,7 @@ pipeline {
         stage('checkout')
            {
             steps {
-                scripts {
-                    git 'https://github.com/ulrich-sun/projet-devops-datascientest.git'
-                }
+                git 'https://github.com/ulrich-sun/projet-devops-datascientest.git'
             }
         }
         stage('Build')
@@ -85,7 +83,7 @@ pipeline {
                 AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
             }
             agent {
-                docker{
+                docker {
                     image 'hashicorp/terraform'
                 }
             }
