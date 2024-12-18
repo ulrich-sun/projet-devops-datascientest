@@ -106,7 +106,7 @@ pipeline {
                 }
             }
 
-        // }
+        }
         // stage('Deploy to Docker VM') {
         //     agent {
         //         docker {
