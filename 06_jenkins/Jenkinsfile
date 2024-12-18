@@ -97,7 +97,7 @@ pipeline {
         //     }
 
         // }
-        stage('Deploy to Docker VM') {
+        stage('Ansible deploy to Docker VM') {
             agent {
                 docker {
                     image 'registry.gitlab.com/robconnolly/docker-ansible:latest'
@@ -112,33 +112,57 @@ pipeline {
                 }
             }
         }
-        // stage('Build Instance Kubernetes') {
-        //     environment {
-        //         AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
-        //         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
-        //     }
-        //     agent {
-        //         docker{
-        //             image 'hashicorp/terraform'
-        //         }
-        //     }
-        //     steps {
-        //         script {
-        //             sh '''
-        //                 mkdir -p ~/.aws
-        //                 cat << EOF > ~/.aws/credentials
-        //                 echo[default]
-        //                 aws_access_key_id=$AWS_ACCESS_KEY_ID
-        //                 aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
-        //                 EOF
-        //                 chmod 400 ~/.aws/credentials
-        //                 cd 05_terraform/
-        //                 terraform init 
-        //                 terraform apply -auto-approve
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Destroy Instance Docker') {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
+                AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+            }
+            agent {
+                docker {
+                    image 'jenkins/jnlp-agent-terraform'
+                }
+            }
+            steps {
+                script {
+                    timeout(time: 30, unit: "MINUTES"){
+                        input message: "Confirmer la suppression de l'intance Docker", ok: 'YES'
+                    }
+                    sh '''
+                        mkdir -p ~/.aws
+                        echo "[default]" > ~/.aws/credentials
+                        echo -e "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
+                        echo -e "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+                        chmod 400 ~/.aws/credentials
+                        cd 05_terraform/
+                        terraform destroy -auto-approve
+                    '''
+                }
+            }
+        stage('Build Instance Kubernetes') {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
+                AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+            }
+            agent {
+                docker{
+                    image 'jenkins/jnlp-agent-terraform'
+                }
+            }
+            steps {
+                script {
+                    sh '''
+                        mkdir -p ~/.aws
+                        echo "[default]" > ~/.aws/credentials
+                        echo -e "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
+                        echo -e "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+                        chmod 400 ~/.aws/credentials
+                        cd 05_terraform/
+                        terraform init 
+                        terraform apply -auto-approve
+                    '''
+                }
+            }
+        }
         //  stage('Deploy to k3s VM') {
         //     steps {
         //         script {
