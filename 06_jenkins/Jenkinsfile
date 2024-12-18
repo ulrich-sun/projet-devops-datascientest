@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE = "ic-webapp"
         DOCKER_TAG = "1.0"
         DOCKER_DIR = "./01_docker"
-        PORT_EXT= "8080"
+        PORT_EXT= "8090"
         PORT_APP = "8080"
         HOST_IP = "127.0.0.1"
         DOCKERHUB_PASSWORD = credentials('dockerhub_password')
