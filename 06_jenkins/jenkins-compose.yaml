@@ -4,9 +4,11 @@ services:
         - 8080:8080
         - 50000:50000
     volumes:
-        - jenkins_home:/var/jenkins_home
-        - /var/run/docker.sock:/var/run/docker.sock
-    image: jenkins/jenkins
+        - 'jenkins_home:/var/jenkins_home'
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - /usr/bin/docker:/usr/bin/docker
+    image: jenkins/jenkins:2.454-jdk17
+    restart: always
     container_name: jenkins_ds
 volumes:
   jenkins_home:
