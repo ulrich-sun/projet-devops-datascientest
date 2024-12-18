@@ -14,14 +14,16 @@ pipeline {
     }
 
     stages {
-        stage('checkout'){
+        stage('checkout')
+           agent any{
             steps {
                 scripts {
                     git 'https://github.com/ulrich-sun/projet-devops-datascientest.git'
                 }
             }
         }
-        stage('Build'){
+        stage('Build')
+            agent any {
             steps {
                script {
                  sh '''
@@ -30,7 +32,8 @@ pipeline {
                }
             }
         }
-        stage('Run and Test') {
+        stage('Run and Test') 
+            agent any {
             steps {
                 script {
                     sh '''
@@ -53,7 +56,8 @@ pipeline {
         //     }
 
         // }
-        stage('Delete') {
+        stage('Delete') 
+            agent any {
             steps {
                 script {
                     sh '''
@@ -64,7 +68,8 @@ pipeline {
             }
 
         }
-        stage('Login and Push') {
+        stage('Login and Push')
+            agent any {
             steps {
                 script {
                     sh '''
@@ -76,15 +81,15 @@ pipeline {
 
         }
         stage('Build Instance Docker') {
-            agent {
-                docker {
-                    image 'hashicorp/terraform'
-                }
             }
             environment {
                 AWS_ACCESS_KEY_ID = credentials ('aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials ('aws_secret_access_key')
             }
+            agent {
+                docker {
+                    image 'hashicorp/terraform'
+                }
             steps {
                 script {
                     sh '''
@@ -104,11 +109,12 @@ pipeline {
 
         }
         stage('Deploy to Docker VM') {
+            
             agent {
                 docker {
                     image 'registry.gitlab.com/dockerfiles6/ansible-lint:latest'
                 }
-            }
+                }
             steps {
                 script {
                     sh '''
