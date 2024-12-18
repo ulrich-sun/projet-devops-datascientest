@@ -1,5 +1,9 @@
 ---
 # tasks file for icwebapp
+- name: install docker pip
+  package:
+    name: python3-docker
+    state: present
 - name: create network
   docker_network:
     name: "{{ network }}"
