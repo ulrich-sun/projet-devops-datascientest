@@ -1,5 +1,5 @@
 pipeline {
-     
+     agent any
     environment {
         DOCKERFILE_NAME = "Dockerfile"
         DOCKERHUB_ID = "ulrichsteve"
@@ -68,8 +68,7 @@ pipeline {
             }
 
         }
-        stage('Login and Push')
-             {
+        stage('Login and Push'){
             steps {
                 script {
                     sh '''
@@ -81,7 +80,6 @@ pipeline {
 
         }
         stage('Build Instance Docker') {
-            }
             environment {
                 AWS_ACCESS_KEY_ID = credentials ('aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials ('aws_secret_access_key')
@@ -90,6 +88,7 @@ pipeline {
                 docker {
                     image 'hashicorp/terraform'
                 }
+            }
             steps {
                 script {
                     sh '''
@@ -109,12 +108,11 @@ pipeline {
 
         }
         stage('Deploy to Docker VM') {
-            
             agent {
                 docker {
                     image 'registry.gitlab.com/dockerfiles6/ansible-lint:latest'
                 }
-                }
+            }
             steps {
                 script {
                     sh '''
