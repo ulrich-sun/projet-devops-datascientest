@@ -91,7 +91,7 @@ pipeline {
         //                 chmod 400 ~/.aws/credentials
         //                 cd 05_terraform/
         //                 terraform init 
-        //                 terraform apply -auto-approve
+        //                 terraform apply -var="stack=docker" -auto-approve 
         //             '''
         //         }
         //     }
@@ -134,7 +134,7 @@ pipeline {
                         echo -e "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
                         chmod 400 ~/.aws/credentials
                         cd 05_terraform/
-                        terraform destroy -auto-approve
+                        terraform destroy -var="stack=docker" -auto-approve
                     '''
                 }
             }
@@ -159,7 +159,7 @@ pipeline {
                         chmod 400 ~/.aws/credentials
                         cd 05_terraform/
                         terraform init 
-                        terraform apply -auto-approve
+                        terraform apply -var="stack=k3s" -auto-approve
                     '''
                 }
             }
