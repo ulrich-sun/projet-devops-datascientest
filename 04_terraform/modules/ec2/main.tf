@@ -1,7 +1,7 @@
 resource "aws_instance" "ds_vm" {
-  ami                         = var.ami
-  instance_type               = var.instance_type
-  vpc_security_group_ids      = [var.sg_id]
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [var.sg_id]
   # security_groups = [var.sg_id]
   key_name                    = var.key_name
   subnet_id                   = var.subnet_id
@@ -25,14 +25,14 @@ resource "aws_instance" "ds_vm" {
     host        = self.public_ip
   }
   provisioner "file" {
-    source = "./scripts/docker.sh"
+    source      = "./scripts/docker.sh"
     destination = "/tmp/docker.sh"
-    
+
   }
   provisioner "remote-exec" {
-    inline = [ 
+    inline = [
       "chmod +x /tmp/docker.sh",
       "/tmp/docker.sh"
-     ]
+    ]
   }
 }

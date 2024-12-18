@@ -1,0 +1,10 @@
+---
+- hosts: docker
+  become: true 
+  gather_facts: no
+  vars:
+    network: ic-webapp-network
+  roles:
+    - icwebapp 
+    - odoo
+    - pgadmin

@@ -35,6 +35,6 @@ resource "aws_instance" "ds_vm" {
     ]
   }
   provisioner "local-exec" {
-    command = "echo ansible_host: ${self.public_ip} >> ../02_ansible/host_vars/docker.yaml"
+    command = "echo -e '\nansible_host: ${self.public_ip}' >> ../02_ansible/host_vars/docker.yaml"
   }
 }
