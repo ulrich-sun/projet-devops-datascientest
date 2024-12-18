@@ -85,7 +85,7 @@ pipeline {
                 AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
             }
             agent {
-                docker {
+                any {
                     image 'hashicorp/terraform'
                 }
             }
