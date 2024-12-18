@@ -97,21 +97,21 @@ pipeline {
         //     }
 
         // }
-        stage('Ansible deploy to Docker VM') {
-            agent {
-                docker {
-                    image 'registry.gitlab.com/robconnolly/docker-ansible:latest'
-                }
-            }
-            steps {
-                script {
-                    sh '''
-                        cd 02_ansible/
-                        ansible-playbook playbooks/vm_docker.yaml
-                    '''
-                }
-            }
-        }
+        // stage('Ansible deploy to Docker VM') {
+        //     agent {
+        //         docker {
+        //             image 'registry.gitlab.com/robconnolly/docker-ansible:latest'
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             sh '''
+        //                 cd 02_ansible/
+        //                 ansible-playbook playbooks/vm_docker.yaml
+        //             '''
+        //         }
+        //     }
+        // }
         stage('Destroy Instance Docker') {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
