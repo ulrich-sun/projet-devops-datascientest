@@ -86,10 +86,8 @@ pipeline {
             }
             agent {
                 docker{
-                {
                     image 'hashicorp/terraform'
                 }
-            }
             }
             steps {
                 script {
