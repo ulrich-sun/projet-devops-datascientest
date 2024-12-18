@@ -85,7 +85,7 @@ pipeline {
                 AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
             }
             agent {
-                any {
+                 {
                     image 'hashicorp/terraform'
                 }
             }
@@ -94,10 +94,10 @@ pipeline {
                     sh '''
                         mkdir -p ~/.aws
                         cat << EOF > ~/.aws/credentials
-                        echo[default]
-                        aws_access_key_id=$AWS_ACCESS_KEY_ID
-                        aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
-                        EOF
+[default]
+aws_access_key_id=$AWS_ACCESS_KEY_ID
+aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
+EOF
                         chmod 400 ~/.aws/credentials
                         cd 05_terraform/
                         terraform init 
