@@ -4,4 +4,4 @@ sudo apt install -y curl
 curl -fsSL https://get.docker.com -o install-docker.sh
 sudo sh install-docker.sh
 sudo usermod -aG docker ubuntu
-sudo service restart docker
+sudo service docker restart 

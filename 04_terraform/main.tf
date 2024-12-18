@@ -11,16 +11,18 @@ module "ec2" {
   source           = "./modules/ec2"
   ami              = data.aws_ami.ubuntu.id
   instance_type    = var.instance_type
-  sg_id            = module.vpc.vpc_id
+  sg_id            = module.security_group.security_group_name
   key_name         = var.key_name
   subnet_id        = module.vpc.subnet_id
   vm_name          = var.vm_name
   private_key_path = local.filename
+  # depends_on = [ module.security_group ]
 }
 
 module "eip" {
   source   = "./modules/eip"
   eip_name = var.eip_name
+  # depends_on = [ module.ec2 ]
 }
 
 locals {
@@ -36,6 +38,7 @@ module "security_group" {
   source  = "./modules/security_group"
   sg_name = var.sg_name
   vpc_id  = module.vpc.vpc_id
+  # depends_on = [ module.vpc ]
 }
 
 module "vpc" {

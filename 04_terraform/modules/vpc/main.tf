@@ -25,7 +25,7 @@ resource "aws_internet_gateway" "ds_igw" {
 resource "aws_route_table" "ds_rt" {
   vpc_id = aws_vpc.ds_vpc.id
   route {
-    cidr_block = aws_vpc.ds_vpc.cidr_block
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ds_igw.id
   }
   tags = {
