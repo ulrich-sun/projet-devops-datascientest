@@ -14,6 +14,13 @@ pipeline {
     }
 
     stages {
+        stage('checkout'){
+            steps {
+                scripts {
+                    git 'https://github.com/ulrich-sun/projet-devops-datascientest.git'
+                }
+            }
+        }
         stage('Build'){
             steps {
                script {
