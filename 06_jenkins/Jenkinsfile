@@ -70,7 +70,7 @@ pipeline {
         //         }
         //     }
 
-        }
+        // }
         stage('Build Instance Docker') {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
@@ -174,5 +174,5 @@ pipeline {
         //         }
         //     }
         // }
-    // }
+    }
 }
