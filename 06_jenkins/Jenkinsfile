@@ -1,17 +1,17 @@
 pipeline {
      agent any
-    environment {
-        DOCKERFILE_NAME = "Dockerfile"
-        DOCKERHUB_ID = "ulrichsteve"
-        DOCKER_IMAGE = "ic-webapp"
-        DOCKER_TAG = "1.0"
-        DOCKER_DIR = "./01_docker"
-        PORT_EXT= "8090"
-        PORT_APP = "8080"
-        HOST_IP = "172.17.0.1"
-        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
+    // environment {
+    //     DOCKERFILE_NAME = "Dockerfile"
+    //     DOCKERHUB_ID = "ulrichsteve"
+    //     DOCKER_IMAGE = "ic-webapp"
+    //     DOCKER_TAG = "1.0"
+    //     DOCKER_DIR = "./01_docker"
+    //     PORT_EXT= "8090"
+    //     PORT_APP = "8080"
+    //     HOST_IP = "172.17.0.1"
+    //     DOCKERHUB_PASSWORD = credentials('dockerhub_password')
 
-    }
+    // }
 
     stages {
         // stage('Build')
