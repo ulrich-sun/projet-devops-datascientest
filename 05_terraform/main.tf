@@ -44,5 +44,5 @@ module "keypair" {
 
 module "security_group" {
   source  = "./modules/security_group"
-  sg_name = var.sg_name
+  sg_name = var.stack
 }
