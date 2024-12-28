@@ -164,15 +164,15 @@ pipeline {
                 }
             }
         }
-        //  stage('Deploy to k3s VM') {
-        //     steps {
-        //         script {
-        //             sh '''
-        //                 cd 02_ansible/
-        //                 ansible-playbook playbooks/vm_k3s.yaml
-        //             '''
-        //         }
-        //     }
-        // }
+         stage('Deploy to k3s VM') {
+            steps {
+                script {
+                    sh '''
+                        cd 02_ansible/
+                        ansible-playbook playbooks/k3s/vm_k3s.yaml
+                    '''
+                }
+            }
+        }
     }
 }
