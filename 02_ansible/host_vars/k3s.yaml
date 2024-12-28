@@ -1,2 +1,2 @@
 ansible_user: ubuntu
-ansible_ssh_private_key_file: ../05_terraform/keypair/k3s.pem
+ansible_ssh_private_key_file: ../05_terraform/keypair/ds_key.pem
